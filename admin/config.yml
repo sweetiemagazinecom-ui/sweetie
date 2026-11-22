@@ -1,0 +1,48 @@
+# Panel para escribir notas de Sweetie.
+backend:
+  name: github
+  repo: sweetiemagazinecom-ui/sweetie
+  branch: main
+
+locale: es
+media_folder: uploads
+public_folder: /uploads
+
+collections:
+  - name: revista
+    label: Revista
+    editor:
+      preview: false
+    files:
+      - name: notas
+        label: Notas y ajustes
+        file: data/notas.json
+        format: json
+        fields:
+          - { name: name, label: Nombre de la revista, widget: string }
+          - { name: tagline, label: Frase de portada, widget: string, required: false }
+          - { name: about, label: Texto del pie de página, widget: text, required: false }
+          - { name: sections, label: Secciones del menú, widget: list, hint: "En el orden en que aparecen arriba. Ponele Play va con ese nombre exacto." }
+          - { name: instagram, label: Link de Instagram, widget: string, required: false }
+          - { name: tiktok, label: Link de TikTok, widget: string, required: false }
+          - { name: playlist, label: Link de la playlist de Spotify, widget: string, required: false }
+          - { name: ppText, label: Texto de la franja Ponele Play, widget: string, required: false }
+          - name: articles
+            label: Notas
+            label_singular: nota
+            widget: list
+            add_to_top: true
+            summary: "{{fields.date}} · {{fields.title}}"
+            fields:
+              - { name: title, label: Título, widget: string }
+              - { name: dek, label: Bajada, widget: string, required: false, hint: "Una o dos líneas que resumen la nota." }
+              - { name: category, label: Sección, widget: string, hint: "Escribila igual que en Secciones del menú: Actualidad, Música, Cine y series, Medios, Cultura o Ponele Play." }
+              - { name: date, label: Fecha, widget: datetime, format: "YYYY-MM-DD", date_format: "DD/MM/YYYY", time_format: false }
+              - { name: author, label: Autora, widget: string, default: "Julieta Ochoa" }
+              - { name: image, label: Imagen principal, widget: image, required: false }
+              - { name: imageAlt, label: Descripción de la imagen, widget: string, required: false }
+              - { name: credit, label: Epígrafe o crédito, widget: string, required: false }
+              - { name: body, label: Texto, widget: markdown }
+              - { name: link, label: Link a la nota original, widget: string, required: false }
+              - { name: featured, label: Destacar en la portada, widget: boolean, default: false }
+              - { name: id, label: "Dirección de la nota (se completa sola si la dejás vacía)", widget: string, required: false }

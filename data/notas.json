@@ -1,0 +1,61 @@
+{
+  "name": "Sweetie",
+  "tagline": "Música, cultura y lo que está pasando",
+  "about": "Revista digital de Julieta Ochoa. Música, cine y series, medios y cultura desde Buenos Aires.",
+  "sections": [
+    "Actualidad",
+    "Música",
+    "Cine y series",
+    "Medios",
+    "Cultura",
+    "Ponele Play"
+  ],
+  "instagram": "https://www.instagram.com/julyochoaok",
+  "tiktok": "https://www.tiktok.com/@julyochoa_",
+  "playlist": "https://open.spotify.com/playlist/6M25By87k959VRIbqvQygk",
+  "ppText": "Lo que estoy escuchando, viendo y recomendando esta semana.",
+  "articles": [
+    {
+      "id": "la-nueva-apuesta-de-resumido",
+      "title": "La nueva apuesta de “Resumido”",
+      "dek": "",
+      "category": "Medios",
+      "author": "Julieta Ochoa",
+      "date": "2026-03-25",
+      "image": "/uploads/nota-resumido.png",
+      "imageAlt": "Portada de la nota La nueva apuesta de Resumido",
+      "credit": "",
+      "body": "Esta nota se publicó originalmente en Quaderno.",
+      "link": "https://quaderno.app/blog/la-nueva-apuesta-de-resumido-nBlTlv",
+      "featured": true
+    },
+    {
+      "id": "sigue-volviendo",
+      "title": "Sigue volviendo",
+      "dek": "",
+      "category": "Cultura",
+      "author": "Julieta Ochoa",
+      "date": "2026-03-25",
+      "image": "/uploads/nota-sigue-volviendo.png",
+      "imageAlt": "Imagen de la nota Sigue volviendo",
+      "credit": "",
+      "body": "Esta nota se publicó originalmente en Quaderno.",
+      "link": "https://quaderno.app/blog/sigue-volviendo-taG3is",
+      "featured": false
+    },
+    {
+      "id": "sabrina-carpenter-no-puede-frenarse",
+      "title": "Sabrina Carpenter no puede frenarse",
+      "dek": "",
+      "category": "Música",
+      "author": "Julieta Ochoa",
+      "date": "2026-03-20",
+      "image": "/uploads/nota-sabrina-carpenter.png",
+      "imageAlt": "Imagen de la nota Sabrina Carpenter no puede frenarse",
+      "credit": "",
+      "body": "Esta nota se publicó originalmente en Quaderno.",
+      "link": "https://quaderno.app/blog/sabrina-carpenter-no-puede-frenarse-FCr1ce",
+      "featured": false
+    }
+  ]
+}
