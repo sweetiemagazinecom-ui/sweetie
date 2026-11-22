@@ -23,9 +23,9 @@ collections:
           - { name: tagline, label: Frase de portada, widget: string, required: false }
           - { name: about, label: Texto del pie de página, widget: text, required: false }
           - { name: sections, label: Secciones del menú, widget: list, hint: "En el orden en que aparecen arriba. Ponele Play va con ese nombre exacto." }
-          - { name: instagram, label: Link de Instagram, widget: string, required: false }
-          - { name: tiktok, label: Link de TikTok, widget: string, required: false }
-          - { name: playlist, label: Link de la playlist de Spotify, widget: string, required: false }
+          - { name: instagram, label: Instagram de Sweetie, widget: string, required: false }
+          - { name: tiktok, label: TikTok de Sweetie, widget: string, required: false }
+          - { name: playlist, label: Playlist de Ponele Play (Spotify), widget: string, required: false }
           - { name: ppText, label: Texto de la franja Ponele Play, widget: string, required: false }
           - { name: cornelia, label: "Cornelia en vivo: mostrar la franja", widget: boolean, default: true }
           - { name: coLiveNow, label: "Cornelia: ¿estás en vivo ahora?", widget: boolean, default: false, hint: "Prendelo mientras transmitís: el punto se pone rojo y titila." }
@@ -42,9 +42,17 @@ collections:
             add_to_top: true
             summary: "{{fields.date}} · {{fields.title}}"
             fields:
+              - { name: kicker, label: Volanta, widget: string, required: false, hint: "Opcional. Frase corta que va arriba del título, por ejemplo: Escándalo en el Summit." }
               - { name: title, label: Título, widget: string }
-              - { name: dek, label: Bajada, widget: string, required: false, hint: "Una o dos líneas que resumen la nota." }
-              - { name: category, label: Sección, widget: string, hint: "Escribila igual que en Secciones del menú: Actualidad, Música, Cine y series, Medios, Cultura o Ponele Play." }
+              - { name: dek, label: Copete (bajada), widget: text, required: false, hint: "Una o dos líneas que resumen la nota. Va debajo del título." }
+              - { name: category, label: Sección principal, widget: string, hint: "Escribila igual que en el menú: Actualidad, Música, Cine y series, Medios, Cultura, Lifestyle o Ponele Play." }
+              - name: also
+                label: También en (otras secciones)
+                widget: select
+                multiple: true
+                required: false
+                hint: "Opcional. Elegí una o más secciones donde la nota también tiene que aparecer."
+                options: ["Actualidad", "Música", "Cine y series", "Medios", "Cultura", "Lifestyle", "Ponele Play"]
               - { name: date, label: Fecha, widget: datetime, format: "YYYY-MM-DD", date_format: "DD/MM/YYYY", time_format: false }
               - { name: author, label: Autora, widget: string, default: "Julieta Ochoa" }
               - { name: image, label: Imagen principal, widget: image, required: false }
