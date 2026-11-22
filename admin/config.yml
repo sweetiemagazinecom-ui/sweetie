@@ -45,7 +45,11 @@ collections:
               - { name: kicker, label: Volanta, widget: string, required: false, hint: "Opcional. Frase corta que va arriba del título, por ejemplo: Escándalo en el Summit." }
               - { name: title, label: Título, widget: string }
               - { name: dek, label: Copete (bajada), widget: text, required: false, hint: "Una o dos líneas que resumen la nota. Va debajo del título." }
-              - { name: category, label: Sección principal, widget: string, hint: "Escribila igual que en el menú: Actualidad, Música, Cine y series, Medios, Cultura, Lifestyle o Ponele Play." }
+              - name: category
+                label: Sección principal
+                widget: select
+                hint: "La sección donde va la nota."
+                options: ["Actualidad", "Música", "Cine y series", "Medios", "Cultura", "Lifestyle", "Ponele Play"]
               - name: also
                 label: También en (otras secciones)
                 widget: select
