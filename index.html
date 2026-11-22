@@ -45,9 +45,9 @@ button{font:inherit;color:inherit}
 .util a{opacity:.9}.util a:hover{opacity:1;text-decoration:underline}
 /* cabecera */
 .mast{background:var(--band);color:#fff;text-align:center}
-.mast .wrap{padding-block:14px 12px}
-.logo{display:inline-block;font-family:var(--logo);font-weight:400;font-size:clamp(68px,12vw,132px);line-height:1.1}
-.mast .claim{margin:0;font-size:12px;letter-spacing:.24em;text-transform:uppercase;opacity:.95}
+.mast .wrap{padding-block:8px 10px}
+.logo{display:inline-block;font-family:var(--logo);font-weight:400;font-size:clamp(50px,7vw,88px);line-height:1.05}
+.mast .claim{margin:0;font-size:11px;letter-spacing:.24em;text-transform:uppercase;opacity:.95}
 /* menú */
 .menu{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);border-bottom:3px double var(--rule-strong)}
 .menu .wrap{display:flex;align-items:center;gap:4px}
@@ -143,6 +143,8 @@ a:hover .h{text-decoration:underline;text-decoration-thickness:1px;text-underlin
 .art{max-width:760px;margin:0 auto}
 .crumb{font-size:13px;color:var(--muted)}
 .crumb a{color:var(--band-deep);font-weight:600}
+.art .volanta{margin:18px 0 0;font-size:14px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.art .volanta+h1{margin-top:6px}
 .art h1{margin:14px 0 0;font-family:var(--head);font-weight:500;font-size:clamp(34px,5.4vw,56px);line-height:1.08;letter-spacing:-.01em;text-wrap:balance}
 .art .dek{font-size:clamp(19px,2.2vw,23px);margin-top:14px}
 .byline{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px 16px;margin-top:20px;padding-block:12px;border-block:1px solid var(--rule);font-size:14px;color:var(--ink-2)}
@@ -219,10 +221,12 @@ function sdate(iso){var p=String(iso||'').split('-');if(p.length<3)return '';ret
 function words(t){return String(t||'').replace(/[#>*_\[\]()]/g,' ').split(/\s+/).filter(Boolean).length}
 function md(t){t=String(t||'');try{if(window.marked){return marked.parse(t).replace(/<script[\s\S]*?<\/script>/gi,'').replace(/ on\w+="[^"]*"/gi,'')}}catch(e){}return t.split(/\n\s*\n/).map(function(p){return '<p>'+esc(p)+'</p>'}).join('')}
 function sorted(){return DATA.articles.slice().sort(function(a,b){return a.date<b.date?1:a.date>b.date?-1:0})}
-function sections(){var s=(DATA.sections&&DATA.sections.length?DATA.sections:DEF_SECS).slice();sorted().forEach(function(a){if(a.category&&!s.some(function(x){return slug(x)===slug(a.category)}))s.push(a.category)});return s}
+function cats(a){var x=a.also;x=Array.isArray(x)?x:String(x||'').split(',');return [a.category].concat(x).map(function(c){return String(c||'').trim()}).filter(function(c,i,arr){return c&&arr.map(slug).indexOf(slug(c))===i})}
+function inSec(a,k){return cats(a).some(function(c){return slug(c)===k})}
+function sections(){var s=(DATA.sections&&DATA.sections.length?DATA.sections:DEF_SECS).slice();sorted().forEach(function(a){cats(a).forEach(function(c){if(!s.some(function(x){return slug(x)===slug(c)}))s.push(c)})});return s}
 function isPP(c){return slug(c)==='ponele-play'}
 function ph(a,eager){return a.image?'<div class="ph"><img src="'+esc(String(a.image).replace(/^\//,''))+'" alt="'+esc(a.imageAlt||'')+'"'+(eager?'':' loading="lazy"')+'></div>':'<div class="ph empty" aria-hidden="true"><span>Sweetie</span></div>'}
-function vol(a){return '<span class="vol'+(isPP(a.category)?' pp':'')+'">'+esc(a.category||'Nota')+'</span>'}
+function vol(a){return '<span class="vol'+(isPP(a.category)?' pp':'')+'">'+esc(a.kicker||a.category||'Nota')+'</span>'}
 function href(a){return '#nota-'+esc(a.id)}
 function card(a,cls){return '<a class="card '+(cls||'')+'" href="'+href(a)+'">'+ph(a)+vol(a)+'<h3 class="h">'+esc(a.title)+'</h3>'+(cls==='big'&&a.dek?'<p class="dek">'+esc(a.dek)+'</p>':'')+'</a>'}
 
@@ -231,7 +235,7 @@ function chrome(cur){
   $('claim').textContent=DATA.tagline||'';
   var soc=[['Instagram',DATA.instagram],['TikTok',DATA.tiktok],['Spotify',DATA.playlist],['Cornelia en vivo',DATA.coLink]].filter(function(x){return x[1]});
   $('social').innerHTML=soc.map(function(x){return '<a href="'+esc(x[1])+'" target="_blank" rel="noopener">'+x[0]+'</a>'}).join('');
-  $('fsocial').innerHTML=soc.map(function(x){return '<li><a href="'+esc(x[1])+'" target="_blank" rel="noopener">'+x[0]+'</a></li>'}).join('');
+  $('fsocial').parentNode.hidden=!soc.length;$('fsocial').innerHTML=soc.map(function(x){return '<li><a href="'+esc(x[1])+'" target="_blank" rel="noopener">'+x[0]+'</a></li>'}).join('');
   var li='<li><a href="#"'+(!cur?' aria-current="page"':'')+'>Portada</a></li>';
   sections().forEach(function(s){var k=slug(s);li+='<li'+(isPP(s)?' class="pp"':'')+'><a href="#seccion-'+k+'"'+(cur===k?' aria-current="page"':'')+'>'+esc(s)+'</a></li>'});
   $('secs').innerHTML=li;
@@ -253,7 +257,7 @@ function coBand(){
     '</div></section>';
 }
 function ppBand(exclude){
-  var pp=sorted().filter(function(a){return isPP(a.category)&&exclude.indexOf(a)<0}).slice(0,3);
+  var pp=sorted().filter(function(a){return inSec(a,'ponele-play')&&exclude.indexOf(a)<0}).slice(0,3);
   return '<section class="pp-band" aria-label="Ponele Play"><div class="wrap"><div><h2>Ponele Play</h2><p>'+esc(DATA.ppText||'Lo que estoy escuchando, viendo y recomendando.')+'</p>'+
     (DATA.playlist?'<a class="go" href="'+esc(DATA.playlist)+'" target="_blank" rel="noopener">Escuchá la playlist ↗</a>':'')+'</div>'+
     (pp.length?'<div class="pp-list">'+pp.map(function(a){return '<a class="card" href="'+href(a)+'">'+ph(a)+'<span class="vol">'+esc(fdate(a.date))+'</span><h3 class="h">'+esc(a.title)+'</h3></a>'}).join('')+'</div>':'<p class="pp-empty">Muy pronto, las primeras recomendaciones.</p>')+
@@ -274,7 +278,7 @@ function home(){
   if(more.length)h+='<div class="row">'+more.map(function(a){return card(a)}).join('')+'</div>';
   sections().forEach(function(s){
     if(isPP(s))return;
-    var list=all.filter(function(a){return slug(a.category)===slug(s)&&used.indexOf(a)<0}).slice(0,3);
+    var list=all.filter(function(a){return inSec(a,slug(s))&&used.indexOf(a)<0}).slice(0,3);
     if(!list.length)return;used=used.concat(list);
     var inner=list.length===1?'<div class="list">'+listItem(list[0])+'</div>':'<div class="secgrid">'+list.map(function(a,i){return card(a,i===0?'big':'')}).join('')+'</div>';
     h+='<section class="sec"><h2 class="blockhead"><a href="#seccion-'+slug(s)+'">Ver todo →</a>'+esc(s)+'</h2>'+inner+'</section>';
@@ -285,7 +289,7 @@ function home(){
 }
 function section(k){
   var name=sections().filter(function(s){return slug(s)===k})[0]||k;
-  var list=sorted().filter(function(a){return slug(a.category)===k});
+  var list=sorted().filter(function(a){return inSec(a,k)});
   document.title=name+' · Sweetie';
   var h='<header class="sechead'+(isPP(name)?' pp':'')+'"><h1>'+esc(name)+'</h1></header>';
   h+=list.length?'<div class="list">'+list.map(listItem).join('')+'</div>':'<p class="none">Todavía no hay notas en esta sección.</p>';
@@ -297,10 +301,10 @@ function article(id){
   document.title=a.title+' · Sweetie';
   var mins=Math.max(1,Math.round(words(a.body)/200));
   var url=location.href;
-  var rel=sorted().filter(function(x){return x!==a&&slug(x.category)===slug(a.category)});
+  var rel=sorted().filter(function(x){return x!==a&&cats(x).some(function(c){return inSec(a,slug(c))})});
   rel=rel.concat(sorted().filter(function(x){return x!==a&&rel.indexOf(x)<0})).slice(0,3);
-  var h='<article class="art"><div class="crumb"><a href="#">Portada</a> / <a href="#seccion-'+slug(a.category)+'">'+esc(a.category)+'</a></div>'+
-    '<h1>'+esc(a.title)+'</h1>'+(a.dek?'<p class="dek">'+esc(a.dek)+'</p>':'')+
+  var h='<article class="art"><div class="crumb"><a href="#">Portada</a> / '+cats(a).map(function(c){return '<a href="#seccion-'+slug(c)+'">'+esc(c)+'</a>'}).join(' · ')+'</div>'+
+    (a.kicker?'<p class="volanta">'+esc(a.kicker)+'</p>':'')+'<h1>'+esc(a.title)+'</h1>'+(a.dek?'<p class="dek">'+esc(a.dek)+'</p>':'')+
     '<div class="byline"><span>Por <strong>'+esc(a.author||'Julieta Ochoa')+'</strong> · '+esc(fdate(a.date))+' · '+mins+' min de lectura</span>'+
     '<span class="share"><a href="https://wa.me/?text='+encodeURIComponent(a.title+' '+url)+'" target="_blank" rel="noopener">WhatsApp</a><a href="https://twitter.com/intent/tweet?text='+encodeURIComponent(a.title)+'&url='+encodeURIComponent(url)+'" target="_blank" rel="noopener">X</a><button type="button" id="copy">Copiar link</button></span></div>'+
     (a.image?'<figure>'+ph(a,true)+(a.credit?'<figcaption>'+esc(a.credit)+'</figcaption>':'')+'</figure>':'')+
