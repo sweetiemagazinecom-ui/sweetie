@@ -20,14 +20,14 @@
 @font-face{font-family:"Girly Moods";src:url("fonts/girly-moods.ttf") format("truetype");font-display:swap}
 :root{
   --paper:#FFFFFF;--paper-2:#F2F8F9;--ink:#13343B;--ink-2:#3F5D64;--muted:#6B858A;
-  --band:#84BCC8;--band-deep:#2F6E7A;--accent:#C2506E;--rule:#D5E3E6;--rule-strong:#13343B;
+  --band:#84BCC8;--band-deep:#2F6E7A;--accent:#C2506E;--co:#C2506E;--rule:#D5E3E6;--rule-strong:#13343B;
   --logo:"Girly Moods","Brush Script MT",cursive;
   --head:"Newsreader",Georgia,"Times New Roman",serif;
   --ui:"Jost","Futura","Avenir Next",system-ui,sans-serif;
   padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#0F1E21;--paper-2:#15292D;--ink:#E7F1F3;--ink-2:#B7CDD1;--muted:#8DA8AD;--band:#4E8E9B;--band-deep:#1D4A53;--accent:#EE8FA8;--rule:#24393D;--rule-strong:#E7F1F3;color-scheme:dark}}
-:root[data-theme="dark"]{--paper:#0F1E21;--paper-2:#15292D;--ink:#E7F1F3;--ink-2:#B7CDD1;--muted:#8DA8AD;--band:#4E8E9B;--band-deep:#1D4A53;--accent:#EE8FA8;--rule:#24393D;--rule-strong:#E7F1F3;color-scheme:dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#0F1E21;--paper-2:#15292D;--ink:#E7F1F3;--ink-2:#B7CDD1;--muted:#8DA8AD;--band:#4E8E9B;--band-deep:#1D4A53;--accent:#EE8FA8;--co:#9E3D5A;--rule:#24393D;--rule-strong:#E7F1F3;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#0F1E21;--paper-2:#15292D;--ink:#E7F1F3;--ink-2:#B7CDD1;--muted:#8DA8AD;--band:#4E8E9B;--band-deep:#1D4A53;--accent:#EE8FA8;--co:#9E3D5A;--rule:#24393D;--rule-strong:#E7F1F3;color-scheme:dark}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--ui);font-size:16px;line-height:1.5;-webkit-text-size-adjust:100%}
@@ -105,6 +105,21 @@ a:hover .h{text-decoration:underline;text-decoration-thickness:1px;text-underlin
 .secgrid .big .h{font-size:28px}
 .secgrid .card .h{font-size:19px}
 /* Ponele Play */
+.co-band{background:var(--co);color:#fff}
+.co-band .wrap{padding-block:28px 32px;display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:20px 40px;align-items:center}
+.co-band h2{margin:0;font-family:var(--logo);font-weight:400;font-size:clamp(56px,7vw,84px);line-height:1}
+.co-band .live{display:inline-flex;align-items:center;gap:8px;margin-top:8px;padding:4px 12px 4px 10px;border:1.5px solid #fff;border-radius:999px;font-size:12px;font-weight:600;letter-spacing:.26em;text-transform:uppercase}
+.co-band .live i{width:9px;height:9px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.3)}
+.co-band .live.on i{background:#FF3B30;animation:blink 1.6s ease-in-out infinite}
+@keyframes blink{50%{opacity:.35}}
+.co-band p{margin:10px 0 0;font-family:var(--head);font-size:18px;line-height:1.45;opacity:.95}
+.co-band .go{display:inline-flex;align-items:center;gap:8px;margin-top:16px;min-height:44px;padding:0 18px;border-radius:999px;background:#fff;color:var(--co);font-weight:600;font-size:14px}
+.co-prog{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.co-prog>*{background:rgba(255,255,255,.14);padding:14px 16px;min-width:0}
+.co-prog b{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.85}
+.co-prog span{display:block;margin-top:4px;font-family:var(--head);font-size:19px;line-height:1.3}
+.co-prog a:hover span{text-decoration:underline}
+.co-soon{font-family:var(--head);font-size:19px;opacity:.9}
 .pp-band{margin-top:0;background:var(--band-deep);color:#fff}
 .pp-band .wrap{padding-block:28px 32px;display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:24px 40px;align-items:start}
 .pp-band h2{margin:0;font-family:var(--logo);font-weight:400;font-size:clamp(56px,7vw,84px);line-height:1}
@@ -163,11 +178,11 @@ footer .legal{grid-column:1/-1;padding-top:16px;border-top:1px solid rgba(255,25
   .side{border-left:0;padding-left:0;margin-top:28px}
   .row{grid-template-columns:repeat(2,minmax(0,1fr))}
   .secgrid{grid-template-columns:1fr 1fr}.secgrid .big{grid-column:1/-1}
-  .pp-band .wrap{grid-template-columns:1fr}
+  .pp-band .wrap,.co-band .wrap{grid-template-columns:1fr}
   footer .wrap{grid-template-columns:1fr 1fr}footer .about{grid-column:1/-1}
 }
 @media (max-width:560px){
-  .row,.secgrid,.pp-list,.related .row{grid-template-columns:1fr}
+  .row,.secgrid,.pp-list,.related .row,.co-prog{grid-template-columns:1fr}
   .pp-list{grid-template-columns:repeat(2,minmax(0,1fr))}
   .list .item{grid-template-columns:1fr}
   .util nav{display:none}
@@ -214,7 +229,7 @@ function card(a,cls){return '<a class="card '+(cls||'')+'" href="'+href(a)+'">'+
 function chrome(cur){
   $('today').textContent=new Intl.DateTimeFormat('es-AR',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(new Date());
   $('claim').textContent=DATA.tagline||'';
-  var soc=[['Instagram',DATA.instagram],['TikTok',DATA.tiktok],['Spotify',DATA.playlist]].filter(function(x){return x[1]});
+  var soc=[['Instagram',DATA.instagram],['TikTok',DATA.tiktok],['Spotify',DATA.playlist],['Cornelia en vivo',DATA.coLink]].filter(function(x){return x[1]});
   $('social').innerHTML=soc.map(function(x){return '<a href="'+esc(x[1])+'" target="_blank" rel="noopener">'+x[0]+'</a>'}).join('');
   $('fsocial').innerHTML=soc.map(function(x){return '<li><a href="'+esc(x[1])+'" target="_blank" rel="noopener">'+x[0]+'</a></li>'}).join('');
   var li='<li><a href="#"'+(!cur?' aria-current="page"':'')+'>Portada</a></li>';
@@ -227,6 +242,16 @@ function chrome(cur){
   $('flash').hidden=!l.length;
   $('flash-items').innerHTML=l.map(function(a){return '<a href="'+href(a)+'">'+esc(a.title)+'</a>'}).join('');
 }
+function coBand(){
+  if(DATA.cornelia===false)return '';
+  var items=[['Próximo vivo',DATA.coNext],['Invitada',DATA.coGuest],['Último programa',DATA.coLastTitle,DATA.coLastLink]].filter(function(x){return x[1]});
+  var on=DATA.coLiveNow===true;
+  return '<section class="co-band" aria-label="Cornelia en vivo"><div class="wrap"><div><h2>Cornelia</h2><span class="live'+(on?' on':'')+'"><i></i>'+(on?'Ahora en vivo':'En vivo')+'</span>'+
+    '<p>'+esc(DATA.coText||'El canal de streaming de Sweetie. Charlas, invitados y lo que está pasando, en vivo.')+'</p>'+
+    (DATA.coLink?'<a class="go" href="'+esc(DATA.coLink)+'" target="_blank" rel="noopener">'+(on?'Mirá el vivo':'Ir al canal')+' ↗</a>':'')+'</div>'+
+    (items.length?'<div class="co-prog">'+items.map(function(x){var inner='<b>'+x[0]+'</b><span>'+esc(x[1])+(x[2]?' ↗':'')+'</span>';return x[2]?'<a href="'+esc(x[2])+'" target="_blank" rel="noopener">'+inner+'</a>':'<div>'+inner+'</div>'}).join('')+'</div>':'<p class="co-soon">Muy pronto, el primer vivo.</p>')+
+    '</div></section>';
+}
 function ppBand(exclude){
   var pp=sorted().filter(function(a){return isPP(a.category)&&exclude.indexOf(a)<0}).slice(0,3);
   return '<section class="pp-band" aria-label="Ponele Play"><div class="wrap"><div><h2>Ponele Play</h2><p>'+esc(DATA.ppText||'Lo que estoy escuchando, viendo y recomendando.')+'</p>'+
@@ -237,7 +262,7 @@ function ppBand(exclude){
 function listItem(a){return '<a class="item" href="'+href(a)+'">'+ph(a)+'<div><span class="vol">'+esc(fdate(a.date))+'</span><h2 class="h">'+esc(a.title)+'</h2>'+(a.dek?'<p class="dek">'+esc(a.dek)+'</p>':'')+'<div class="meta">Por '+esc(a.author||'Julieta Ochoa')+'</div></div></a>'}
 function home(){
   var all=sorted(),v=$('view');
-  if(!all.length){v.innerHTML='<p class="none">Todavía no hay notas publicadas.</p>';v.insertAdjacentHTML('afterend',ppBand([]));return}
+  if(!all.length){v.innerHTML='<p class="none">Todavía no hay notas publicadas.</p>';v.insertAdjacentHTML('afterend',ppBand([])+coBand());return}
   var news=all.filter(function(a){return !isPP(a.category)});if(!news.length)news=all;
   var lead=news.filter(function(a){return a.featured})[0]||news[0];
   var rest=news.filter(function(a){return a!==lead});
@@ -255,8 +280,8 @@ function home(){
     h+='<section class="sec"><h2 class="blockhead"><a href="#seccion-'+slug(s)+'">Ver todo →</a>'+esc(s)+'</h2>'+inner+'</section>';
   });
   v.innerHTML=h;
-  var band=document.querySelector('.pp-band');if(band)band.remove();
-  v.insertAdjacentHTML('afterend',ppBand([]));
+  document.querySelectorAll('.pp-band,.co-band').forEach(function(b){b.remove()});
+  v.insertAdjacentHTML('afterend',ppBand([])+coBand());
 }
 function section(k){
   var name=sections().filter(function(s){return slug(s)===k})[0]||k;
@@ -288,7 +313,7 @@ function article(id){
   window.scrollTo(0,0);
 }
 function route(){
-  var h=location.hash.replace(/^#/,'');var band=document.querySelector('.pp-band');if(band)band.remove();
+  var h=location.hash.replace(/^#/,'');document.querySelectorAll('.pp-band,.co-band').forEach(function(b){b.remove()});
   if(h.indexOf('nota-')===0){chrome(null);article(h.slice(5))}
   else if(h.indexOf('seccion-')===0){chrome(h.slice(8));section(h.slice(8))}
   else{chrome(null);document.title='Sweetie';home()}

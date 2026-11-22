@@ -27,6 +27,14 @@ collections:
           - { name: tiktok, label: Link de TikTok, widget: string, required: false }
           - { name: playlist, label: Link de la playlist de Spotify, widget: string, required: false }
           - { name: ppText, label: Texto de la franja Ponele Play, widget: string, required: false }
+          - { name: cornelia, label: "Cornelia en vivo: mostrar la franja", widget: boolean, default: true }
+          - { name: coLiveNow, label: "Cornelia: ¿estás en vivo ahora?", widget: boolean, default: false, hint: "Prendelo mientras transmitís: el punto se pone rojo y titila." }
+          - { name: coText, label: "Cornelia: texto de la franja", widget: string, required: false }
+          - { name: coLink, label: "Cornelia: link al canal (YouTube, Twitch, Instagram...)", widget: string, required: false }
+          - { name: coNext, label: "Cornelia: próximo vivo", widget: string, required: false, hint: "Por ejemplo: Jueves 28 · 20 h · Hablamos del Lollapalooza" }
+          - { name: coGuest, label: "Cornelia: invitada o invitado", widget: string, required: false }
+          - { name: coLastTitle, label: "Cornelia: título del último programa", widget: string, required: false }
+          - { name: coLastLink, label: "Cornelia: link al último programa", widget: string, required: false }
           - name: articles
             label: Notas
             label_singular: nota

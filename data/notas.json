@@ -14,6 +14,14 @@
   "tiktok": "https://www.tiktok.com/@julyochoa_",
   "playlist": "https://open.spotify.com/playlist/6M25By87k959VRIbqvQygk",
   "ppText": "Lo que estoy escuchando, viendo y recomendando esta semana.",
+  "cornelia": true,
+  "coLiveNow": false,
+  "coText": "El canal de streaming de Sweetie. Charlas, invitados y lo que está pasando, en vivo.",
+  "coLink": "",
+  "coNext": "",
+  "coGuest": "",
+  "coLastTitle": "",
+  "coLastLink": "",
   "articles": [
     {
       "id": "la-nueva-apuesta-de-resumido",
