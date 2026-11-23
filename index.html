@@ -129,6 +129,13 @@ a:hover .h{text-decoration:underline;text-decoration-thickness:1px;text-underlin
 .pp-list .vol{color:#fff;opacity:.75}
 .pp-list .h{font-size:19px;color:#fff}
 .pp-list .ph{aspect-ratio:1/1;background:rgba(255,255,255,.12)}
+.pp-cta{align-self:center;display:flex;align-items:center;gap:18px;padding:18px 24px 18px 18px;border-radius:18px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.4);color:#fff;text-decoration:none;transition:background .2s}
+.pp-cta:hover{background:rgba(255,255,255,.2)}
+.pp-play{flex:none;width:58px;height:58px;border-radius:50%;background:#fff;color:var(--band-deep);display:grid;place-items:center;padding-left:3px;transition:transform .2s}
+.pp-cta:hover .pp-play{transform:scale(1.06)}
+.pp-txt{display:flex;flex-direction:column;gap:4px;min-width:0}
+.pp-txt b{font-family:var(--head);font-weight:500;font-size:clamp(19px,2.2vw,24px);line-height:1.25}
+.pp-txt small{font-size:14px;opacity:.88}
 .pp-empty{font-family:var(--head);font-size:18px;opacity:.85;align-self:center}
 /* página de sección */
 .sechead{padding-bottom:16px;margin-bottom:24px;border-bottom:3px double var(--rule-strong)}
@@ -275,8 +282,8 @@ function coBand(){
 function ppBand(exclude){
   var pp=sorted().filter(function(a){return inSec(a,'ponele-play')&&exclude.indexOf(a)<0}).slice(0,3);
   return '<section class="pp-band" aria-label="Ponele Play"><div class="wrap"><div><h2>Ponele Play</h2><p>'+esc(DATA.ppText||'Lo que estoy escuchando, viendo y recomendando.')+'</p>'+
-    (DATA.playlist?'<a class="go" href="'+esc(DATA.playlist)+'" target="_blank" rel="noopener">Escuchá la playlist ↗</a>':'')+'</div>'+
-    (pp.length?'<div class="pp-list">'+pp.map(function(a){return '<a class="card" href="'+href(a)+'">'+ph(a)+'<span class="vol">'+esc(fdate(a.date))+'</span><h3 class="h">'+esc(a.title)+'</h3></a>'}).join('')+'</div>':'<p class="pp-empty">Muy pronto, las primeras recomendaciones.</p>')+
+    (DATA.playlist&&pp.length?'<a class="go" href="'+esc(DATA.playlist)+'" target="_blank" rel="noopener">Escuchá la playlist ↗</a>':'')+'</div>'+
+    (pp.length?'<div class="pp-list">'+pp.map(function(a){return '<a class="card" href="'+href(a)+'">'+ph(a)+'<span class="vol">'+esc(fdate(a.date))+'</span><h3 class="h">'+esc(a.title)+'</h3></a>'}).join('')+'</div>':(DATA.playlist?'<a class="pp-cta" href="'+esc(DATA.playlist)+'" target="_blank" rel="noopener"><span class="pp-play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span><span class="pp-txt"><b>Hacé click y escuchá las recomendaciones del día</b><small>Dale play y empezá bien el día ↗</small></span></a>':'<p class="pp-empty">Muy pronto, las primeras recomendaciones.</p>'))+
     '</div></section>';
 }
 function listItem(a){return '<a class="item" href="'+href(a)+'">'+ph(a)+'<div><span class="vol">'+esc(fdate(a.date))+'</span><h2 class="h">'+esc(a.title)+'</h2>'+(a.dek?'<p class="dek">'+esc(a.dek)+'</p>':'')+'<div class="meta">Por '+esc(a.author||'Julieta Ochoa')+'</div></div></a>'}
