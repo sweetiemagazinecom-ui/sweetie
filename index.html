@@ -277,7 +277,9 @@ function md(t){t=String(t||'');var h;try{if(window.marked){h=marked.parse(t).rep
   if(h==null)h=t.split(/\n\s*\n/).map(function(p){return '<p>'+esc(p)+'</p>'}).join('');
   h=h.replace(/<p>\s*(?:<a href="([^"]+)"[^>]*>[^<]*<\/a>|(https?:\/\/[^\s<]+))\s*<\/p>/g,function(all,a,b){return embed(a||b)||all});
   return h.replace(/<a href="(https?:\/\/[^"]+)"/g,'<a href="$1" target="_blank" rel="noopener"')}
-function sorted(){return DATA.articles.slice().sort(function(a,b){return a.date<b.date?1:a.date>b.date?-1:0})}
+function sorted(){return DATA.articles.filter(visible).sort(function(a,b){return b._at-a._at})}
+var PREVIEW=/[?&]preview\b/.test(location.search);
+function visible(a){return PREVIEW||(!a.draft&&a._at<=Date.now())}
 function cats(a){var x=a.also;x=Array.isArray(x)?x:String(x||'').split(',');return [a.category].concat(x).map(function(c){return String(c||'').trim()}).filter(function(c,i,arr){return c&&arr.map(slug).indexOf(slug(c))===i})}
 function inSec(a,k){return cats(a).some(function(c){return slug(c)===k})}
 function sections(){var s=(DATA.sections&&DATA.sections.length?DATA.sections:DEF_SECS).slice();sorted().forEach(function(a){cats(a).forEach(function(c){if(!s.some(function(x){return slug(x)===slug(c)}))s.push(c)})});return s}
@@ -367,7 +369,7 @@ function autolink(root){
   });
 }
 function article(id){
-  var a=DATA.articles.filter(function(x){return x.id===id})[0],v=$('view');
+  var a=DATA.articles.filter(function(x){return x.id===id&&visible(x)})[0],v=$('view');
   if(!a){v.innerHTML='<p class="none">No encontramos esta nota. <a href="#">Volver a la portada</a></p>';return}
   document.title=a.title+' · Sweetie';
   var mins=Math.max(1,Math.round(words(a.body)/200));
@@ -399,7 +401,8 @@ var menu=$('menu');
 try{new IntersectionObserver(function(e){menu.classList.toggle('stuck',!e[0].isIntersecting)}).observe(document.querySelector('.mast'))}catch(e){}
 fetch('data/notas.json',{cache:'no-cache'}).then(function(r){return r.json()}).then(function(d){
   DATA=Object.assign(DATA,d||{});
-  DATA.articles=(DATA.articles||[]).map(function(a,i){a.id=a.id||slug(a.title)||('nota-'+i);a.date=String(a.date||'').slice(0,10);return a});
+  DATA.articles=(DATA.articles||[]).map(function(a,i){a.id=a.id||slug(a.title)||('nota-'+i);a.date=String(a.date||'').slice(0,10);var t=/^\d{1,2}:\d{2}$/.test(String(a.time||'').trim())?String(a.time).trim():'00:00';if(t.length===4)t='0'+t;a._at=Date.parse(a.date+'T'+t+':00-03:00')||0;return a});
+  if(PREVIEW){var pb=document.createElement('div');pb.textContent='Vista previa: se muestran también las notas programadas y los borradores.';pb.style.cssText='background:#C2506E;color:#fff;text-align:center;font:600 13px Jost,sans-serif;padding:8px 16px';document.body.prepend(pb)}
   route();
 }).catch(function(){$('view').innerHTML='<p class="none">No pudimos cargar las notas. Probá recargar la página.</p>'});
 chrome(null);
