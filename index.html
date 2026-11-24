@@ -305,7 +305,7 @@ var PREVIEW=/[?&]preview\b/.test(location.search);
 function visible(a){return PREVIEW||(!a.draft&&a._at<=Date.now())}
 function cats(a){var x=a.also;x=Array.isArray(x)?x:String(x||'').split(',');return [a.category].concat(x).map(function(c){return String(c||'').trim()}).filter(function(c,i,arr){return c&&arr.map(slug).indexOf(slug(c))===i})}
 function inSec(a,k){return cats(a).some(function(c){return slug(c)===k})}
-function sections(){var s=(DATA.sections&&DATA.sections.length?DATA.sections:DEF_SECS).slice();sorted().forEach(function(a){cats(a).forEach(function(c){if(!s.some(function(x){return slug(x)===slug(c)}))s.push(c)})});return s}
+function sections(){var s=[];(DATA.sections&&DATA.sections.length?DATA.sections:DEF_SECS).forEach(function(x){x=String(x||'').trim();if(x&&!s.some(function(y){return slug(y)===slug(x)}))s.push(x)});sorted().forEach(function(a){cats(a).forEach(function(c){if(!s.some(function(x){return slug(x)===slug(c)}))s.push(c)})});return s}
 function isPP(c){return slug(c)==='ponele-play'}
 function ph(a,eager){return a.image?'<div class="ph"><img src="'+esc(String(a.image).replace(/^\//,''))+'" alt="'+esc(a.imageAlt||'')+'"'+(eager?'':' loading="lazy"')+'></div>':'<div class="ph empty" aria-hidden="true"><span>Sweetie</span></div>'}
 function vol(a){return '<span class="vol'+(isPP(a.category)?' pp':'')+'">'+esc(a.kicker||a.category||'Nota')+'</span>'}

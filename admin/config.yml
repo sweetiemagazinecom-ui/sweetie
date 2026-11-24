@@ -71,30 +71,26 @@ collections:
     hint: Una o dos líneas que resumen la nota. Va debajo del título.
   - name: category
     label: Sección principal
-    widget: select
-    hint: La sección donde va la nota.
-    options:
-    - Actualidad
-    - Música
-    - Cine y series
-    - Medios
-    - Cultura
-    - Lifestyle
-    - Ponele Play
+    widget: relation
+    collection: ajustes
+    file: ajustes
+    value_field: sections.*
+    search_fields: &id001
+    - sections.*
+    display_fields: &id002
+    - sections.*
+    hint: La sección donde va la nota. Las opciones salen de Ajustes de la revista › Todas las secciones.
   - name: also
     label: También en (otras secciones)
-    widget: select
+    widget: relation
+    collection: ajustes
+    file: ajustes
+    value_field: sections.*
+    search_fields: *id001
+    display_fields: *id002
     multiple: true
     required: false
-    hint: Opcional. Elegí una o más secciones donde la nota también tiene que aparecer.
-    options:
-    - Actualidad
-    - Música
-    - Cine y series
-    - Medios
-    - Cultura
-    - Lifestyle
-    - Ponele Play
+    hint: Opcional. Otras secciones donde la nota también aparece.
   - name: date
     label: Fecha de publicación
     widget: datetime
@@ -142,6 +138,30 @@ collections:
     label: Destacar en la portada
     widget: boolean
     default: false
+- name: links
+  label: Diccionario de links
+  label_singular: Link
+  folder: data/links
+  format: json
+  extension: json
+  create: true
+  delete: true
+  identifier_field: name
+  slug: '{{name}}'
+  summary: '{{name}}'
+  thumbnail: false
+  sortable_fields:
+  - field: name
+    label: Nombre
+    default_sort: asc
+  description: Cada nombre se convierte solo en link la primera vez que aparece en una nota.
+  fields:
+  - name: name
+    label: Nombre (como lo escribís en las notas)
+    widget: string
+  - name: url
+    label: Link (Instagram, Spotify, web...)
+    widget: string
 - name: ajustes
   label: Ajustes de la revista
   files:
@@ -164,12 +184,18 @@ collections:
     - name: sections
       label: Todas las secciones
       widget: list
-      hint: Todas las secciones de la revista, en orden. Aparecen completas en el menú lateral (las tres rayitas).
+      hint: Todas las secciones de la revista, en orden. Aparecen en el menú lateral y en las opciones de cada nota.
     - name: topSections
       label: Secciones visibles arriba
-      widget: list
+      widget: relation
+      collection: ajustes
+      file: ajustes
+      value_field: sections.*
+      search_fields: *id001
+      display_fields: *id002
+      multiple: true
       required: false
-      hint: 'Elegí cuáles se ven en la barra de arriba, separadas por coma y escritas igual que en Todas las secciones. Ej: Actualidad, Música, Cine y series. Si lo dejás vacío, se ven todas.'
+      hint: Elegí cuáles se ven en la barra de arriba. Si no elegís ninguna, se ven todas. Todas aparecen siempre en el menú lateral.
     - name: instagram
       label: Instagram de Sweetie
       widget: string
@@ -186,21 +212,6 @@ collections:
       label: Texto de la franja Ponele Play
       widget: string
       required: false
-    - name: links
-      label: Diccionario de links
-      label_singular: Link
-      widget: list
-      required: false
-      collapsed: true
-      summary: '{{fields.name}}'
-      hint: Cargá una vez cada nombre con su link. Cuando lo escribas en una nota, la revista lo convierte sola en link (la primera vez que aparece).
-      fields:
-      - name: name
-        label: Nombre (como lo escribís en las notas)
-        widget: string
-      - name: url
-        label: Link (Instagram, Spotify, web...)
-        widget: string
     - name: cornelia
       label: 'Cornelia en vivo: mostrar la franja'
       widget: boolean
