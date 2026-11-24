@@ -204,6 +204,11 @@ footer .legal{grid-column:1/-1;padding-top:16px;border-top:1px solid rgba(255,25
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+window.OneSignalDeferred=window.OneSignalDeferred||[];
+OneSignalDeferred.push(async function(OneSignal){try{await OneSignal.init({appId:"f65a0d02-36c2-44ad-8346-a1b07fa83a8a"})}catch(e){}});
+</script>
 </head>
 <body>
 
@@ -318,6 +323,20 @@ function section(k){
   h+=list.length?'<div class="list">'+list.map(listItem).join('')+'</div>':'<p class="none">Todavía no hay notas en esta sección.</p>';
   $('view').innerHTML=h;
 }
+function autolink(root){
+  var list=(DATA.links||[]).filter(function(l){return l&&l.name&&l.url&&String(l.name).trim().length>1}).map(function(l){return {name:String(l.name).trim(),url:String(l.url).trim()}});
+  if(!root||!list.length)return;
+  list.sort(function(a,b){return b.name.length-a.name.length});
+  var reEsc=function(t){return t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')};
+  list.forEach(function(l){
+    if(root.querySelector('a[href="'+l.url.replace(/"/g,'\\"')+'"]'))return;
+    var re;try{re=new RegExp('(^|[^\\p{L}\\p{N}])('+reEsc(l.name)+')(?![\\p{L}\\p{N}])','iu')}catch(e){return}
+    var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:function(n){for(var p=n.parentNode;p&&p!==root;p=p.parentNode){if(/^(A|H1|H2|H3|BLOCKQUOTE|FIGCAPTION)$/.test(p.nodeName))return NodeFilter.FILTER_REJECT}return NodeFilter.FILTER_ACCEPT}});
+    var n;while((n=w.nextNode())){var m=re.exec(n.nodeValue);if(!m)continue;
+      var start=m.index+m[1].length,mid=n.splitText(start);mid.splitText(m[2].length);
+      var a=document.createElement('a');a.href=l.url;a.target='_blank';a.rel='noopener';a.textContent=mid.nodeValue;mid.parentNode.replaceChild(a,mid);break}
+  });
+}
 function article(id){
   var a=DATA.articles.filter(function(x){return x.id===id})[0],v=$('view');
   if(!a){v.innerHTML='<p class="none">No encontramos esta nota. <a href="#">Volver a la portada</a></p>';return}
@@ -336,6 +355,7 @@ function article(id){
     '</article>';
   if(rel.length)h+='<section class="related wrap" style="padding:0"><h2 class="blockhead">Te puede interesar</h2><div class="row">'+rel.map(function(x){return card(x)}).join('')+'</div></section>';
   v.innerHTML=h;
+  try{autolink(v.querySelector('.body'))}catch(e){}
   $('copy').onclick=function(){var b=this;try{navigator.clipboard.writeText(url).then(function(){b.textContent='Link copiado'},function(){b.textContent=url})}catch(e){b.textContent=url}};
   window.scrollTo(0,0);
 }

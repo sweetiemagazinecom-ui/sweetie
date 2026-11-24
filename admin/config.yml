@@ -26,6 +26,17 @@ collections:
           - { name: tiktok, label: TikTok de Sweetie, widget: string, required: false }
           - { name: playlist, label: Playlist de Ponele Play (Spotify), widget: string, required: false }
           - { name: ppText, label: Texto de la franja Ponele Play, widget: string, required: false }
+          - name: links
+            label: Diccionario de links
+            label_singular: Link
+            widget: list
+            required: false
+            collapsed: true
+            summary: "{{fields.name}}"
+            hint: "Cargá una vez cada nombre con su link. Cuando lo escribas en una nota, la revista lo convierte sola en link (la primera vez que aparece)."
+            fields:
+              - { name: name, label: "Nombre (como lo escribís en las notas)", widget: string }
+              - { name: url, label: "Link (Instagram, Spotify, web...)", widget: string }
           - { name: cornelia, label: "Cornelia en vivo: mostrar la franja", widget: boolean, default: true }
           - { name: coLiveNow, label: "Cornelia: ¿estás en vivo ahora?", widget: boolean, default: false, hint: "Prendelo mientras transmitís: el punto se pone rojo y titila." }
           - { name: coText, label: "Cornelia: texto de la franja", widget: string, required: false }
