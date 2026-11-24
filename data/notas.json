@@ -15,6 +15,92 @@
   "tiktok": "",
   "playlist": "https://open.spotify.com/playlist/1QaXetVUAHoOqLPeHYXi0u?si=k81QWqD6RzKxEQqMtOQYow&utm_source=copy-link",
   "ppText": "Lo que estoy escuchando, viendo y recomendando esta semana.",
+  "links": [
+    {
+      "name": "Yoyi Francella",
+      "url": "https://www.instagram.com/yoyifrancella/"
+    },
+    {
+      "name": "Matías Mayer",
+      "url": "https://www.instagram.com/matiasmayer/"
+    },
+    {
+      "name": "Cachete Sierra",
+      "url": "https://www.instagram.com/cachetesierra/"
+    },
+    {
+      "name": "Agustín Sierra",
+      "url": "https://www.instagram.com/cachetesierra/"
+    },
+    {
+      "name": "Johanna Francella",
+      "url": "https://www.instagram.com/yoyifrancella/"
+    },
+    {
+      "name": "Luisana Lopilato",
+      "url": "https://www.instagram.com/luisanalopilato/?hl=en"
+    },
+    {
+      "name": "Jimena Barón",
+      "url": "https://www.instagram.com/jmena/?hl=en"
+    },
+    {
+      "name": "Pampita",
+      "url": "https://www.instagram.com/pampitaoficial/?hl=en"
+    },
+    {
+      "name": "Carolina Ardohaín",
+      "url": "https://www.instagram.com/pampitaoficial/?hl=en"
+    },
+    {
+      "name": "Sol Perez",
+      "url": "https://www.instagram.com/lasobrideperez/?hl=en"
+    },
+    {
+      "name": "Julieta Poggio",
+      "url": "https://www.instagram.com/poggiojulieta/?hl=en"
+    },
+    {
+      "name": "Juli Poggio",
+      "url": "https://www.instagram.com/poggiojulieta/?hl=en"
+    },
+    {
+      "name": "Flor Jazmín Peña",
+      "url": "https://www.instagram.com/florjazminpe/?hl=en"
+    },
+    {
+      "name": "Diego Leuco",
+      "url": "https://www.instagram.com/dieleuco/?hl=en"
+    },
+    {
+      "name": "Nadie Dice Nada",
+      "url": "https://www.instagram.com/nadiedicenada/?hl=en"
+    },
+    {
+      "name": "Luzu Tv",
+      "url": "https://www.instagram.com/luzutv/?hl=en"
+    },
+    {
+      "name": "Taylor Swift",
+      "url": "https://www.instagram.com/taylorswift/?hl=en"
+    },
+    {
+      "name": "Dua Lipa",
+      "url": "https://www.instagram.com/dualipa/?hl=en"
+    },
+    {
+      "name": "Lewis Hamilton",
+      "url": "https://www.instagram.com/lewishamilton/?hl=en"
+    },
+    {
+      "name": "Max Verstappen",
+      "url": "https://www.instagram.com/maxverstappen1/?hl=en"
+    },
+    {
+      "name": "George Russell",
+      "url": "https://www.instagram.com/georgerussell63/?hl=en"
+    }
+  ],
   "cornelia": true,
   "coLiveNow": false,
   "coText": "El canal de streaming de Sweetie. Charlas, invitados y lo que está pasando, en vivo.",
@@ -33,6 +119,8 @@
         "Actualidad"
       ],
       "date": "2026-11-23",
+      "time": "",
+      "draft": false,
       "author": "Julieta Ochoa",
       "image": "/uploads/photo.jpg",
       "imageAlt": "",
@@ -51,6 +139,8 @@
         "Actualidad"
       ],
       "date": "2026-11-22",
+      "time": "",
+      "draft": false,
       "author": "Julieta Ochoa",
       "image": "/uploads/1000191320.jpg",
       "imageAlt": "",
@@ -69,6 +159,8 @@
         "Actualidad"
       ],
       "date": "2026-11-22",
+      "time": "",
+      "draft": false,
       "author": "Julieta Ochoa",
       "image": "/uploads/ROSALIA-and-Rauw-Alejandro-latin-grammy-2022-billboard-espanol-1548.webp",
       "imageAlt": "",
@@ -88,6 +180,8 @@
         "Actualidad"
       ],
       "date": "2026-11-22",
+      "time": "",
+      "draft": false,
       "author": "Julieta Ochoa",
       "image": "/uploads/snapinsta.to_927343170_18754233505038300_6386619102973550353_n.webp",
       "imageAlt": "",
@@ -104,6 +198,8 @@
       "category": "Lifestyle",
       "also": [],
       "date": "2026-11-22",
+      "time": "",
+      "draft": false,
       "author": "Julieta Ochoa",
       "image": "/uploads/hailey.jpg",
       "imageAlt": "",
@@ -120,6 +216,8 @@
       "category": "Medios",
       "also": [],
       "date": "2026-03-25",
+      "time": "",
+      "draft": false,
       "author": "Julieta Ochoa",
       "image": "/uploads/nota-resumido.png",
       "imageAlt": "Portada de la nota La nueva apuesta de Resumido",
@@ -136,6 +234,8 @@
       "category": "Cultura",
       "also": [],
       "date": "2026-03-25",
+      "time": "",
+      "draft": false,
       "author": "Julieta Ochoa",
       "image": "/uploads/nota-sigue-volviendo.png",
       "imageAlt": "Imagen de la nota Sigue volviendo",
@@ -152,6 +252,8 @@
       "category": "Música",
       "also": [],
       "date": "2026-03-20",
+      "time": "",
+      "draft": false,
       "author": "Julieta Ochoa",
       "image": "/uploads/nota-sabrina-carpenter.png",
       "imageAlt": "Imagen de la nota Sabrina Carpenter no puede frenarse",
