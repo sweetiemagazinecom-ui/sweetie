@@ -213,6 +213,23 @@ footer .legal{grid-column:1/-1;padding-top:16px;border-top:1px solid rgba(255,25
 .bell-tip{position:absolute;right:68px;bottom:8px;width:max-content;max-width:min(260px,calc(100vw - 110px));padding:9px 14px;border-radius:12px;background:var(--ink);color:var(--paper);font-family:var(--ui);font-size:14px;line-height:1.35;text-align:left;opacity:0;transform:translateX(6px);pointer-events:none;transition:opacity .2s,transform .2s;box-shadow:0 8px 20px rgba(0,0,0,.18)}
 .bell:hover .bell-tip,.bell:focus-visible .bell-tip,.bell.show-tip .bell-tip{opacity:1;transform:none}
 @media (hover:none){.bell:hover .bell-tip{opacity:0}.bell.show-tip .bell-tip{opacity:1}}
+.burger{flex:none;display:inline-flex;align-items:center;gap:8px;min-height:46px;padding:0 14px 0 2px;margin-right:6px;border:0;border-right:1px solid var(--rule);background:none;color:var(--ink);font:600 13px/1 var(--ui);letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+.burger:hover{color:var(--band-deep)}
+.scrim{position:fixed;inset:0;z-index:50;background:rgba(19,52,59,.45)}
+.drawer{position:fixed;top:0;bottom:0;left:0;z-index:51;width:min(340px,86vw);overflow-y:auto;background:var(--paper);color:var(--ink);box-shadow:12px 0 40px rgba(0,0,0,.2);padding:calc(14px + env(safe-area-inset-top,0px)) 0 calc(24px + env(safe-area-inset-bottom,0px)) env(safe-area-inset-left,0px);animation:din .22s ease}
+@keyframes din{from{transform:translateX(-100%)}to{transform:none}}
+.dhead{display:flex;align-items:center;justify-content:space-between;padding:0 12px 12px 24px;border-bottom:3px double var(--rule-strong)}
+.dlogo{font-family:var(--logo);font-size:48px;line-height:1.1;color:var(--band-deep)}
+.dclose{width:44px;height:44px;display:grid;place-items:center;border:0;border-radius:50%;background:none;color:var(--ink);cursor:pointer}
+.dclose:hover{background:var(--paper-2)}
+.dlist{margin:0;padding:8px 0;list-style:none}
+.dlist a{display:flex;align-items:center;min-height:50px;padding:0 24px;font-size:15px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;border-left:3px solid transparent}
+.dlist a:hover{background:var(--paper-2);color:var(--band-deep)}
+.dlist a[aria-current="page"]{border-left-color:var(--accent);background:var(--paper-2)}
+.dlist li.pp a{color:var(--band-deep)}
+.dsoc{display:flex;flex-wrap:wrap;gap:8px 18px;padding:16px 24px;border-top:1px solid var(--rule);font-size:14px;color:var(--ink-2)}
+.dsoc a:hover{text-decoration:underline}
+@media (max-width:560px){.burger span{display:none}.burger{padding-right:10px}}
 </style>
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 <script>
@@ -242,7 +259,13 @@ OneSignalDeferred.push(async function(O){
 
 <div class="util"><div class="wrap"><span class="date" id="today"></span><nav aria-label="Redes" id="social"></nav></div></div>
 <header class="mast"><div class="wrap"><a class="logo" href="#" id="logo">Sweetie</a><p class="claim" id="claim"></p></div></header>
-<nav class="menu" id="menu" aria-label="Secciones"><div class="wrap"><a class="mini" href="#" aria-hidden="true" tabindex="-1">Sweetie</a><ul id="secs"></ul></div></nav>
+<nav class="menu" id="menu" aria-label="Secciones"><div class="wrap"><button type="button" class="burger" id="burger" aria-label="Abrir todas las secciones" aria-expanded="false" aria-controls="drawer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span>Secciones</span></button><a class="mini" href="#" aria-hidden="true" tabindex="-1">Sweetie</a><ul id="secs"></ul></div></nav>
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Todas las secciones" hidden>
+<div class="dhead"><a class="dlogo" href="#">Sweetie</a><button type="button" class="dclose" id="dclose" aria-label="Cerrar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+<ul class="dlist" id="dsecs"></ul>
+<div class="dsoc" id="dsoc"></div>
+</aside>
 <div class="flash" id="flash" hidden><div class="wrap"><b>Lo último</b><div class="items" id="flash-items"></div></div></div>
 <main id="view" class="wrap"></main>
 <footer><div class="wrap">
@@ -295,9 +318,14 @@ function chrome(cur){
   var soc=[['Instagram',DATA.instagram],['TikTok',DATA.tiktok],['Spotify',DATA.playlist],['Cornelia en vivo',DATA.coLink]].filter(function(x){return x[1]});
   $('social').innerHTML=soc.map(function(x){return '<a href="'+esc(x[1])+'" target="_blank" rel="noopener">'+x[0]+'</a>'}).join('');
   $('fsocial').parentNode.hidden=!soc.length;$('fsocial').innerHTML=soc.map(function(x){return '<li><a href="'+esc(x[1])+'" target="_blank" rel="noopener">'+x[0]+'</a></li>'}).join('');
-  var li='<li><a href="#"'+(!cur?' aria-current="page"':'')+'>Portada</a></li>';
-  sections().forEach(function(s){var k=slug(s);li+='<li'+(isPP(s)?' class="pp"':'')+'><a href="#seccion-'+k+'"'+(cur===k?' aria-current="page"':'')+'>'+esc(s)+'</a></li>'});
-  $('secs').innerHTML=li;
+  var all=sections();
+  var top=(Array.isArray(DATA.topSections)?DATA.topSections:String(DATA.topSections||'').split(',')).map(function(x){return String(x).trim()}).filter(Boolean);
+  var topSecs=top.length?all.filter(function(s){return top.some(function(t){return slug(t)===slug(s)})}):all;
+  function item(s){var k=slug(s);return '<li'+(isPP(s)?' class="pp"':'')+'><a href="#seccion-'+k+'"'+(cur===k?' aria-current="page"':'')+'>'+esc(s)+'</a></li>'}
+  var home='<li><a href="#"'+(!cur?' aria-current="page"':'')+'>Portada</a></li>';
+  $('secs').innerHTML=home+topSecs.map(item).join('');
+  $('dsecs').innerHTML=home+all.map(item).join('');
+  $('dsoc').innerHTML=soc.map(function(x){return '<a href="'+esc(x[1])+'" target="_blank" rel="noopener">'+x[0]+'</a>'}).join('');$('dsoc').hidden=!soc.length;
   $('fsecs').innerHTML=sections().map(function(s){return '<li><a href="#seccion-'+slug(s)+'">'+esc(s)+'</a></li>'}).join('');
   $('fabout').textContent=DATA.about||'Revista digital de Julieta Ochoa.';
   $('legal').textContent='© '+new Date().getFullYear()+' Sweetie · Dirección: Julieta Ochoa · Buenos Aires';
@@ -397,6 +425,12 @@ function route(){
   else{chrome(null);document.title='Sweetie';home()}
 }
 window.addEventListener('hashchange',route);
+var drawer=$('drawer'),scrim=$('scrim'),burger=$('burger');
+function openD(){drawer.hidden=false;scrim.hidden=false;burger.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';var f=drawer.querySelector('a[aria-current]')||drawer.querySelector('.dlist a');if(f)f.focus()}
+function closeD(){if(drawer.hidden)return;drawer.hidden=true;scrim.hidden=true;burger.setAttribute('aria-expanded','false');document.body.style.overflow='';burger.focus()}
+burger.onclick=openD;$('dclose').onclick=closeD;scrim.onclick=closeD;
+drawer.addEventListener('click',function(e){if(e.target.closest('a'))closeD()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeD()});
 var menu=$('menu');
 try{new IntersectionObserver(function(e){menu.classList.toggle('stuck',!e[0].isIntersecting)}).observe(document.querySelector('.mast'))}catch(e){}
 fetch('data/notas.json',{cache:'no-cache'}).then(function(r){return r.json()}).then(function(d){

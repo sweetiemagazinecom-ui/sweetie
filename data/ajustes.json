@@ -1,0 +1,112 @@
+{
+  "name": "Sweetie",
+  "tagline": "Tu mundo en términos pop",
+  "about": "Revista digital de la Ciudad Autonoma de Buenos Aires. Especialistas en música, cine y series, medios y cultura.",
+  "sections": [
+    "Actualidad",
+    "Música",
+    "Cine y series",
+    "Medios",
+    "Cultura",
+    "Lifestyle",
+    "Opinión"
+  ],
+  "instagram": "https://www.instagram.com/sweetiemagazine?evlk=MWJza3c0b3F3NWhxYw==",
+  "tiktok": "",
+  "playlist": "https://open.spotify.com/playlist/1QaXetVUAHoOqLPeHYXi0u?si=k81QWqD6RzKxEQqMtOQYow&utm_source=copy-link",
+  "ppText": "Lo que estoy escuchando, viendo y recomendando esta semana.",
+  "links": [
+    {
+      "name": "Yoyi Francella",
+      "url": "https://www.instagram.com/yoyifrancella/"
+    },
+    {
+      "name": "Matías Mayer",
+      "url": "https://www.instagram.com/matiasmayer/"
+    },
+    {
+      "name": "Cachete Sierra",
+      "url": "https://www.instagram.com/cachetesierra/"
+    },
+    {
+      "name": "Agustín Sierra",
+      "url": "https://www.instagram.com/cachetesierra/"
+    },
+    {
+      "name": "Johanna Francella",
+      "url": "https://www.instagram.com/yoyifrancella/"
+    },
+    {
+      "name": "Luisana Lopilato",
+      "url": "https://www.instagram.com/luisanalopilato/?hl=en"
+    },
+    {
+      "name": "Jimena Barón",
+      "url": "https://www.instagram.com/jmena/?hl=en"
+    },
+    {
+      "name": "Pampita",
+      "url": "https://www.instagram.com/pampitaoficial/?hl=en"
+    },
+    {
+      "name": "Carolina Ardohaín",
+      "url": "https://www.instagram.com/pampitaoficial/?hl=en"
+    },
+    {
+      "name": "Sol Perez",
+      "url": "https://www.instagram.com/lasobrideperez/?hl=en"
+    },
+    {
+      "name": "Julieta Poggio",
+      "url": "https://www.instagram.com/poggiojulieta/?hl=en"
+    },
+    {
+      "name": "Juli Poggio",
+      "url": "https://www.instagram.com/poggiojulieta/?hl=en"
+    },
+    {
+      "name": "Flor Jazmín Peña",
+      "url": "https://www.instagram.com/florjazminpe/?hl=en"
+    },
+    {
+      "name": "Diego Leuco",
+      "url": "https://www.instagram.com/dieleuco/?hl=en"
+    },
+    {
+      "name": "Nadie Dice Nada",
+      "url": "https://www.instagram.com/nadiedicenada/?hl=en"
+    },
+    {
+      "name": "Luzu Tv",
+      "url": "https://www.instagram.com/luzutv/?hl=en"
+    },
+    {
+      "name": "Taylor Swift",
+      "url": "https://www.instagram.com/taylorswift/?hl=en"
+    },
+    {
+      "name": "Dua Lipa",
+      "url": "https://www.instagram.com/dualipa/?hl=en"
+    },
+    {
+      "name": "Lewis Hamilton",
+      "url": "https://www.instagram.com/lewishamilton/?hl=en"
+    },
+    {
+      "name": "Max Verstappen",
+      "url": "https://www.instagram.com/maxverstappen1/?hl=en"
+    },
+    {
+      "name": "George Russell",
+      "url": "https://www.instagram.com/georgerussell63/?hl=en"
+    }
+  ],
+  "cornelia": true,
+  "coLiveNow": false,
+  "coText": "El canal de streaming de Sweetie. Charlas, invitados y lo que está pasando, en vivo.",
+  "coLink": "",
+  "coNext": "",
+  "coGuest": "",
+  "coLastTitle": "",
+  "coLastLink": ""
+}

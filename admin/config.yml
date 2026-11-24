@@ -1,80 +1,240 @@
-# Panel para escribir notas de Sweetie.
 backend:
   name: github
   repo: sweetiemagazinecom-ui/sweetie
   branch: main
-
 media_folder: uploads
 public_folder: /uploads
-
 collections:
-  - name: revista
-    label: Revista
-    editor:
-      preview: false
-    files:
-      - name: notas
-        label: Notas y ajustes
-        file: data/notas.json
-        format: json
-        fields:
-          - { name: name, label: Nombre de la revista, widget: string }
-          - { name: tagline, label: Frase de portada, widget: string, required: false }
-          - { name: about, label: Texto del pie de página, widget: text, required: false }
-          - { name: sections, label: Secciones del menú, widget: list, hint: "En el orden en que aparecen arriba. Ponele Play va con ese nombre exacto." }
-          - { name: instagram, label: Instagram de Sweetie, widget: string, required: false }
-          - { name: tiktok, label: TikTok de Sweetie, widget: string, required: false }
-          - { name: playlist, label: Playlist de Ponele Play (Spotify), widget: string, required: false }
-          - { name: ppText, label: Texto de la franja Ponele Play, widget: string, required: false }
-          - name: links
-            label: Diccionario de links
-            label_singular: Link
-            widget: list
-            required: false
-            collapsed: true
-            summary: "{{fields.name}}"
-            hint: "Cargá una vez cada nombre con su link. Cuando lo escribas en una nota, la revista lo convierte sola en link (la primera vez que aparece)."
-            fields:
-              - { name: name, label: "Nombre (como lo escribís en las notas)", widget: string }
-              - { name: url, label: "Link (Instagram, Spotify, web...)", widget: string }
-          - { name: cornelia, label: "Cornelia en vivo: mostrar la franja", widget: boolean, default: true }
-          - { name: coLiveNow, label: "Cornelia: ¿estás en vivo ahora?", widget: boolean, default: false, hint: "Prendelo mientras transmitís: el punto se pone rojo y titila." }
-          - { name: coText, label: "Cornelia: texto de la franja", widget: string, required: false }
-          - { name: coLink, label: "Cornelia: link al canal (YouTube, Twitch, Instagram...)", widget: string, required: false }
-          - { name: coNext, label: "Cornelia: próximo vivo", widget: string, required: false, hint: "Por ejemplo: Jueves 28 · 20 h · Hablamos del Lollapalooza" }
-          - { name: coGuest, label: "Cornelia: invitada o invitado", widget: string, required: false }
-          - { name: coLastTitle, label: "Cornelia: título del último programa", widget: string, required: false }
-          - { name: coLastLink, label: "Cornelia: link al último programa", widget: string, required: false }
-          - name: articles
-            label: Notas
-            label_singular: nota
-            widget: list
-            add_to_top: true
-            summary: "{{fields.date}} · {{fields.title}}"
-            fields:
-              - { name: kicker, label: Volanta, widget: string, required: false, hint: "Opcional. Frase corta que va arriba del título, por ejemplo: Escándalo en el Summit." }
-              - { name: title, label: Título, widget: string }
-              - { name: dek, label: Copete (bajada), widget: text, required: false, hint: "Una o dos líneas que resumen la nota. Va debajo del título." }
-              - name: category
-                label: Sección principal
-                widget: select
-                hint: "La sección donde va la nota."
-                options: ["Actualidad", "Música", "Cine y series", "Medios", "Cultura", "Lifestyle", "Ponele Play"]
-              - name: also
-                label: También en (otras secciones)
-                widget: select
-                multiple: true
-                required: false
-                hint: "Opcional. Elegí una o más secciones donde la nota también tiene que aparecer."
-                options: ["Actualidad", "Música", "Cine y series", "Medios", "Cultura", "Lifestyle", "Ponele Play"]
-              - { name: date, label: Fecha de publicación, widget: datetime, format: "YYYY-MM-DD", date_format: "DD/MM/YYYY", time_format: false }
-              - { name: time, label: "Hora de publicación (opcional)", widget: datetime, format: "HH:mm", date_format: false, time_format: "HH:mm", required: false, hint: "Para programar la nota: elegí fecha y hora futuras y guardá. Aparece sola en la revista a esa hora (hora de Argentina). Si la dejás vacía, sale a las 00:00 de esa fecha." }
-              - { name: draft, label: "Borrador (no publicar todavía)", widget: boolean, default: false, required: false, hint: "Mientras esté prendido, la nota no aparece en la revista." }
-              - { name: author, label: Autora, widget: string, default: "Julieta Ochoa" }
-              - { name: image, label: Imagen principal, widget: image, required: false }
-              - { name: imageAlt, label: Descripción de la imagen, widget: string, required: false }
-              - { name: credit, label: Epígrafe o crédito, widget: string, required: false }
-              - { name: body, label: Texto, widget: markdown }
-              - { name: link, label: Link a la nota original, widget: string, required: false }
-              - { name: featured, label: Destacar en la portada, widget: boolean, default: false }
-              - { name: id, label: "Dirección de la nota (se completa sola si la dejás vacía)", widget: string, required: false }
+- name: notas
+  label: Notas
+  label_singular: Nota
+  folder: data/notas
+  format: json
+  extension: json
+  create: true
+  delete: true
+  identifier_field: title
+  slug: '{{title}}'
+  summary: '{{title}}'
+  thumbnail: image
+  sortable_fields:
+  - field: date
+    label: Fecha
+    default_sort: desc
+  - field: title
+    label: Título
+  - field: category
+    label: Sección
+  view_filters:
+    filters:
+    - name: publicadas
+      label: Publicadas
+      field: draft
+      ne: true
+    - name: borradores
+      label: Borradores
+      field: draft
+      eq: true
+    - name: programadas
+      label: Programadas (fecha futura)
+      field: date
+      gt: '{{today}}'
+    - name: destacadas
+      label: Destacadas en portada
+      field: featured
+      eq: true
+  view_groups:
+    groups:
+    - name: seccion
+      label: Sección
+      field: category
+    - name: mes
+      label: Mes
+      field: date
+      pattern: \d{4}-\d{2}
+    - name: estado
+      label: Borrador / publicada
+      field: draft
+  fields:
+  - name: kicker
+    label: Volanta
+    widget: string
+    required: false
+    hint: 'Opcional. Frase corta que va arriba del título, por ejemplo: Escándalo en el Summit.'
+  - name: title
+    label: Título
+    widget: string
+  - name: dek
+    label: Copete (bajada)
+    widget: text
+    required: false
+    hint: Una o dos líneas que resumen la nota. Va debajo del título.
+  - name: category
+    label: Sección principal
+    widget: select
+    hint: La sección donde va la nota.
+    options:
+    - Actualidad
+    - Música
+    - Cine y series
+    - Medios
+    - Cultura
+    - Lifestyle
+    - Ponele Play
+  - name: also
+    label: También en (otras secciones)
+    widget: select
+    multiple: true
+    required: false
+    hint: Opcional. Elegí una o más secciones donde la nota también tiene que aparecer.
+    options:
+    - Actualidad
+    - Música
+    - Cine y series
+    - Medios
+    - Cultura
+    - Lifestyle
+    - Ponele Play
+  - name: date
+    label: Fecha de publicación
+    widget: datetime
+    format: YYYY-MM-DD
+    date_format: DD/MM/YYYY
+    time_format: false
+  - name: time
+    label: Hora de publicación (opcional)
+    widget: datetime
+    format: HH:mm
+    date_format: false
+    time_format: HH:mm
+    required: false
+    hint: 'Para programar la nota: elegí fecha y hora futuras y guardá. Aparece sola en la revista a esa hora (hora de Argentina). Si la dejás vacía, sale a las 00:00 de esa fecha.'
+  - name: draft
+    label: Borrador (no publicar todavía)
+    widget: boolean
+    default: false
+    required: false
+    hint: Mientras esté prendido, la nota no aparece en la revista.
+  - name: author
+    label: Autora
+    widget: string
+    default: Julieta Ochoa
+  - name: image
+    label: Imagen principal
+    widget: image
+    required: false
+  - name: imageAlt
+    label: Descripción de la imagen
+    widget: string
+    required: false
+  - name: credit
+    label: Epígrafe o crédito
+    widget: string
+    required: false
+  - name: body
+    label: Texto
+    widget: markdown
+  - name: link
+    label: Link a la nota original
+    widget: string
+    required: false
+  - name: featured
+    label: Destacar en la portada
+    widget: boolean
+    default: false
+- name: ajustes
+  label: Ajustes de la revista
+  files:
+  - name: ajustes
+    label: Secciones, redes, Ponele Play, Cornelia y links
+    file: data/ajustes.json
+    format: json
+    fields:
+    - name: name
+      label: Nombre de la revista
+      widget: string
+    - name: tagline
+      label: Frase de portada
+      widget: string
+      required: false
+    - name: about
+      label: Texto del pie de página
+      widget: text
+      required: false
+    - name: sections
+      label: Todas las secciones
+      widget: list
+      hint: Todas las secciones de la revista, en orden. Aparecen completas en el menú lateral (las tres rayitas).
+    - name: topSections
+      label: Secciones visibles arriba
+      widget: list
+      required: false
+      hint: 'Elegí cuáles se ven en la barra de arriba, separadas por coma y escritas igual que en Todas las secciones. Ej: Actualidad, Música, Cine y series. Si lo dejás vacío, se ven todas.'
+    - name: instagram
+      label: Instagram de Sweetie
+      widget: string
+      required: false
+    - name: tiktok
+      label: TikTok de Sweetie
+      widget: string
+      required: false
+    - name: playlist
+      label: Playlist de Ponele Play (Spotify)
+      widget: string
+      required: false
+    - name: ppText
+      label: Texto de la franja Ponele Play
+      widget: string
+      required: false
+    - name: links
+      label: Diccionario de links
+      label_singular: Link
+      widget: list
+      required: false
+      collapsed: true
+      summary: '{{fields.name}}'
+      hint: Cargá una vez cada nombre con su link. Cuando lo escribas en una nota, la revista lo convierte sola en link (la primera vez que aparece).
+      fields:
+      - name: name
+        label: Nombre (como lo escribís en las notas)
+        widget: string
+      - name: url
+        label: Link (Instagram, Spotify, web...)
+        widget: string
+    - name: cornelia
+      label: 'Cornelia en vivo: mostrar la franja'
+      widget: boolean
+      default: true
+    - name: coLiveNow
+      label: 'Cornelia: ¿estás en vivo ahora?'
+      widget: boolean
+      default: false
+      hint: 'Prendelo mientras transmitís: el punto se pone rojo y titila.'
+    - name: coText
+      label: 'Cornelia: texto de la franja'
+      widget: string
+      required: false
+    - name: coLink
+      label: 'Cornelia: link al canal (YouTube, Twitch, Instagram...)'
+      widget: string
+      required: false
+    - name: coNext
+      label: 'Cornelia: próximo vivo'
+      widget: string
+      required: false
+      hint: 'Por ejemplo: Jueves 28 · 20 h · Hablamos del Lollapalooza'
+    - name: coGuest
+      label: 'Cornelia: invitada o invitado'
+      widget: string
+      required: false
+    - name: coLastTitle
+      label: 'Cornelia: título del último programa'
+      widget: string
+      required: false
+    - name: coLastLink
+      label: 'Cornelia: link al último programa'
+      widget: string
+      required: false
+slug:
+  encoding: ascii
+  clean_accents: true
