@@ -7,7 +7,6 @@
     "Música",
     "Cine y series",
     "Medios",
-    "Cultura",
     "Lifestyle",
     "Opinión",
     "Deportes",
@@ -25,6 +24,14 @@
   "tiktok": "",
   "playlist": "https://open.spotify.com/playlist/1QaXetVUAHoOqLPeHYXi0u?si=k81QWqD6RzKxEQqMtOQYow&utm_source=copy-link",
   "ppText": "Lo que estoy escuchando, viendo y recomendando esta semana.",
+  "cornelia": true,
+  "coLiveNow": false,
+  "coText": "El canal de streaming de Sweetie. Charlas, invitados y lo que está pasando, en vivo.",
+  "coLink": "",
+  "coNext": "",
+  "coGuest": "",
+  "coLastTitle": "",
+  "coLastLink": "",
   "links": [
     {
       "name": "Yoyi Francella",
@@ -110,13 +117,5 @@
       "name": "George Russell",
       "url": "https://www.instagram.com/georgerussell63/?hl=en"
     }
-  ],
-  "cornelia": true,
-  "coLiveNow": false,
-  "coText": "El canal de streaming de Sweetie. Charlas, invitados y lo que está pasando, en vivo.",
-  "coLink": "",
-  "coNext": "",
-  "coGuest": "",
-  "coLastTitle": "",
-  "coLastLink": ""
+  ]
 }
