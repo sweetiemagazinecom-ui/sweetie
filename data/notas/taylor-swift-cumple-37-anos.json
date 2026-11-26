@@ -3,15 +3,17 @@
   "title": "Taylor Swift cumple 37 años",
   "dek": "Repasamos la carrera musical de Taylor Swift en honor a su cumpleaños número 37.",
   "category": "Música",
-  "also": [],
+  "also": [
+    "Actualidad"
+  ],
   "date": "2026-11-25",
-  "time": "",
-  "draft": true,
+  "time": "06:30",
+  "draft": false,
   "author": "Julieta Ochoa",
-  "image": "",
-  "imageAlt": "",
-  "credit": "",
-  "body": "\\----",
+  "image": "/uploads/pasted-image-1795660861761.png",
+  "imageAlt": "Taylor Swift en los Video Music Awards 2026",
+  "credit": "Fotografía perteneciente a Billboard",
+  "body": "Taylor Swift nació un 13 de diciembre de 1989 y comenzó su carrera cuando tenía apenas 16 años de edad.",
   "link": "",
   "featured": false
 }
